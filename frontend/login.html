@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Login - AuraAssess</title>
+
+  <link rel="icon" href="assets/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* Role selection */
+    .role-selection {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+
+    .role-card {
+      border: 1px solid #d8dce6;
+      border-radius: 12px;
+      padding: 14px 8px;
+      background: transparent;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s ease;
+      font-weight: 600;
+    }
+
+    .role-card:hover {
+      transform: translateY(-1px);
+      border-color: #6c63ff;
+    }
+
+    .role-card.active {
+      border-color: #6c63ff;
+      background: rgba(108, 99, 255, 0.10);
+      box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.12);
+    }
+
+    .role-icon {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .selected-role {
+      text-align: center;
+      margin: 0 0 16px;
+      font-weight: 600;
+    }
+
+    .change-role {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .role-selection {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="auth-page">
+
+  <!-- LEFT SIDE -->
+  <div class="auth-side">
+
+    <a class="brand" href="index.html">
+      <img src="assets/logo.svg" alt="AuraAssess logo">
+
+      <span>
+        AuraAssess
+        <small>Assess. Analyze. Improve.</small>
+      </span>
+    </a>
+
+    <h2>Smarter exams. Deeper insight.</h2>
+
+    <ul>
+      <li>📊 Topic-wise strong &amp; weak area analysis</li>
+      <li>⏱️ Timed, proctored online exams</li>
+      <li>🏆 Real-time leaderboards &amp; rankings</li>
+      <li>📈 Track your performance trend</li>
+    </ul>
+
+  </div>
+
+
+  <!-- RIGHT SIDE -->
+  <div class="auth-main">
+
+    <div class="auth-top">
+      <button class="iconbtn" id="themeBtn"></button>
+    </div>
+
+    <div class="auth-box">
+
+      <!-- LOGO -->
+      <a class="brand" href="index.html" style="margin-bottom:18px">
+
+        <img src="assets/logo.svg" alt="AuraAssess logo">
+
+        <span>
+          <b>AuraAssess</b>
+          <small>Assess. Analyze. Improve.</small>
+        </span>
+
+      </a>
+
+
+      <!-- ===================================================== -->
+      <!-- ROLE SELECTION -->
+      <!-- ===================================================== -->
+
+      <div id="roleSelection">
+
+        <h2 style="text-align:center;margin-bottom:5px;">
+          Choose your login
+        </h2>
+
+        <p class="muted" style="text-align:center;">
+          Select your role to continue
+        </p>
+
+        <div class="role-selection">
+
+          <button
+            type="button"
+            class="role-card"
+            data-role="ADMIN">
+
+            <span class="role-icon">👨‍💼</span>
+            Admin
+
+          </button>
+
+
+          <button
+            type="button"
+            class="role-card"
+            data-role="TEACHER">
+
+            <span class="role-icon">👨‍🏫</span>
+            Teacher
+
+          </button>
+
+
+          <button
+            type="button"
+            class="role-card"
+            data-role="STUDENT">
+
+            <span class="role-icon">🎓</span>
+            Student
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ===================================================== -->
+      <!-- LOGIN -->
+      <!-- ===================================================== -->
+
+      <form id="loginView" hidden>
+
+        <h2 id="loginTitle">Welcome back</h2>
+
+        <p class="muted" id="loginSubtitle">
+          Sign in to continue
+        </p>
+
+        <p class="selected-role" id="selectedRoleText"></p>
+
+
+        <label id="identifierLabel">
+          User ID / Email
+        </label>
+
+        <input
+          id="identifier"
+          required
+          autocomplete="username"
+          placeholder="Enter your User ID or email"
+        >
+
+
+        <label>
+          Password
+        </label>
+
+        <div class="pw-wrap">
+
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Your password"
+            required
+          >
+
+          <button
+            type="button"
+            class="eye">
+            👁️
+          </button>
+
+        </div>
+
+
+        <p style="text-align:right;margin:8px 0">
+
+          <button
+            type="button"
+            class="linkbtn"
+            id="toForgot">
+
+            Forgot Password?
+
+          </button>
+
+        </p>
+
+
+        <button
+          class="btn primary block"
+          type="submit">
+
+          Login
+
+        </button>
+
+
+        <p
+          class="muted"
+          style="font-size:.82rem">
+
+          First time? Enter your User ID and you will be asked
+          to create a password.
+
+        </p>
+
+
+        <p class="change-role">
+
+          <button
+            type="button"
+            class="linkbtn"
+            id="changeRole">
+
+            ← Change role
+
+          </button>
+
+        </p>
+
+      </form>
+
+
+      <!-- ===================================================== -->
+      <!-- CREATE PASSWORD -->
+      <!-- ===================================================== -->
+
+      <form id="createView" hidden>
+
+        <h2>Create your password</h2>
+
+        <p class="muted">
+          Account:
+          <b id="cpIdent"></b>
+        </p>
+
+        <p class="selected-role" id="createRoleText"></p>
+
+
+        <label>
+          New Password
+        </label>
+
+        <div class="pw-wrap">
+
+          <input
+            id="newPw"
+            type="password"
+            minlength="6"
+            required
+          >
+
+          <button
+            type="button"
+            class="eye">
+            👁️
+          </button>
+
+        </div>
+
+
+        <label>
+          Confirm Password
+        </label>
+
+        <div class="pw-wrap">
+
+          <input
+            id="confPw"
+            type="password"
+            minlength="6"
+            required
+          >
+
+          <button
+            type="button"
+            class="eye">
+            👁️
+          </button>
+
+        </div>
+
+
+        <button
+          class="btn primary block"
+          style="margin-top:16px"
+          type="submit">
+
+          Save password &amp; continue
+
+        </button>
+
+
+        <p style="margin-top:10px">
+
+          <button
+            type="button"
+            class="linkbtn"
+            id="createBack">
+
+            ← Back to login
+
+          </button>
+
+        </p>
+
+      </form>
+
+
+      <!-- ===================================================== -->
+      <!-- FORGOT PASSWORD -->
+      <!-- ===================================================== -->
+
+      <form id="forgotView" hidden>
+
+        <h2>Forgot password</h2>
+
+        <p class="muted">
+          Enter your User ID or email to get a reset token.
+        </p>
+
+        <p class="selected-role" id="forgotRoleText"></p>
+
+
+        <label>
+          User ID / Email
+        </label>
+
+        <input
+          id="fgIdent"
+          required
+        >
+
+
+        <button
+          class="btn primary block"
+          style="margin-top:16px"
+          type="submit">
+
+          Get reset token
+
+        </button>
+
+
+        <p style="margin-top:10px">
+
+          <button
+            type="button"
+            class="linkbtn"
+            id="forgotBack">
+
+            ← Back to login
+
+          </button>
+
+          ·
+
+          <button
+            type="button"
+            class="linkbtn"
+            id="toReset">
+
+            I have a token
+
+          </button>
+
+        </p>
+
+      </form>
+
+
+      <!-- ===================================================== -->
+      <!-- RESET PASSWORD -->
+      <!-- ===================================================== -->
+
+      <form id="resetView" hidden>
+
+        <h2>Reset password</h2>
+
+        <p class="selected-role" id="resetRoleText"></p>
+
+
+        <label>
+          Reset Token
+        </label>
+
+        <input
+          id="resetToken"
+          required
+        >
+
+
+        <label>
+          New Password
+        </label>
+
+        <div class="pw-wrap">
+
+          <input
+            id="rsPw"
+            type="password"
+            minlength="6"
+            required
+          >
+
+          <button
+            type="button"
+            class="eye">
+            👁️
+          </button>
+
+        </div>
+
+
+        <label>
+          Confirm Password
+        </label>
+
+        <div class="pw-wrap">
+
+          <input
+            id="rsConf"
+            type="password"
+            minlength="6"
+            required
+          >
+
+          <button
+            type="button"
+            class="eye">
+            👁️
+          </button>
+
+        </div>
+
+
+        <button
+          class="btn primary block"
+          style="margin-top:16px"
+          type="submit">
+
+          Reset password
+
+        </button>
+
+
+        <p style="margin-top:10px">
+
+          <button
+            type="button"
+            class="linkbtn"
+            id="resetBack">
+
+            ← Back to login
+
+          </button>
+
+        </p>
+
+      </form>
+
+
+      <!-- MESSAGE -->
+
+      <div id="msg" class="msg"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="js/common.js"></script>
+<script src="js/login.js"></script>
+
+</body>
+</html>

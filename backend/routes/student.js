@@ -1,0 +1,15 @@
+const r = require('express').Router();
+const c = require('../controllers/studentController');
+const common = require('../controllers/commonController');
+r.get('/dashboard', c.dashboard);
+r.get('/exams', c.exams);
+r.get('/exams/:id', c.exam);
+r.post('/exams/:id/start', c.start);
+r.post('/exams/:id/answer', c.answer);
+r.post('/exams/:id/violation', c.violation);
+r.post('/exams/:id/submit', c.submit);
+r.get('/results', c.results);
+r.get('/results/:attemptId', c.resultDetail);
+r.get('/analytics', c.analytics);
+r.get('/leaderboard', common.leaderboard);
+module.exports = r;

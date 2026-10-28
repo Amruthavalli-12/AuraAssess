@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AuraAssess - Online Exam Analytics System</title><link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="css/style.css"></head>
+<body><div class="hero">
+  <div class="hero-nav"><a class="brand" href="index.html"><img src="assets/logo.svg" alt="AuraAssess logo"><span><b>AuraAssess</b><small>Assess. Analyze. Improve.</small></span></a>
+    <div><button class="iconbtn" id="themeBtn"></button> <a class="btn primary" href="login.html">Login</a></div></div>
+  <div class="hero-body">
+    <img src="assets/logo.svg" width="84" alt="">
+    <h1><b>AuraAssess</b></h1><p class="muted" style="font-size:1.3rem;margin:0 0 6px">Assess. Analyze. Improve.</p>
+    <p class="muted" style="max-width:620px">An online exam platform that goes beyond marks: it analyzes topic-wise performance so every student knows exactly what to improve.</p>
+    <a class="btn primary" style="margin-top:14px;padding:13px 34px;font-size:1.05rem" href="login.html">Get Started</a>
+    <div class="features">
+      <div class="card"><h3>📝 Online Exams</h3><span class="muted">Timed MCQ exams with auto-submit.</span></div>
+      <div class="card"><h3>🛡️ Proctoring</h3><span class="muted">Fullscreen, tab and camera monitoring.</span></div>
+      <div class="card"><h3>📊 Topic Analytics</h3><span class="muted">Strong, weak and improving topics.</span></div>
+      <div class="card"><h3>🏆 Leaderboards</h3><span class="muted">Live rankings from real results.</span></div>
+    </div></div></div>
+<script src="js/common.js"></script>
+<script>$('#themeBtn').onclick=toggleTheme;applyTheme(document.documentElement.dataset.theme);if(store.token&&store.user){location.href=store.user.role.toLowerCase()+'.html';}</script>
+</body></html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Exam - AuraAssess</title>
+
+  <link
+    rel="icon"
+    href="assets/logo.svg"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+</head>
+
+<body>
+
+  <!-- =====================================================
+       EXAM TOP BAR
+       ===================================================== -->
+
+  <div class="exam-top">
+
+    <a
+      class="brand"
+      id="brandLink"
+    >
+      <img
+        src="assets/logo.svg"
+        alt="AuraAssess logo"
+      >
+
+      <span>
+        <b>AuraAssess</b>
+        <small>Assess. Analyze. Improve.</small>
+      </span>
+    </a>
+
+
+    <div class="grow">
+
+      <b id="hTitle">
+        Exam
+      </b>
+
+      <br>
+
+      <small
+        class="muted"
+        id="hStudent"
+      ></small>
+
+    </div>
+
+
+    <!-- Violation counter is updated dynamically by exam.js -->
+    <span
+      class="badge orange"
+      id="vBadge"
+      hidden
+    >
+      Violations 0/0
+    </span>
+
+
+    <div
+      class="timer"
+      id="timer"
+    >
+      --:--
+    </div>
+
+
+    <button
+      class="iconbtn"
+      id="themeBtn"
+      title="Toggle theme"
+      aria-label="Toggle theme"
+    ></button>
+
+  </div>
+
+
+  <!-- =====================================================
+       EXAM INTRO / INSTRUCTIONS
+       ===================================================== -->
+
+  <div
+    id="intro"
+    style="max-width:760px;margin:24px auto;padding:0 16px"
+  >
+
+    <div
+      class="card"
+      id="introCard"
+    >
+
+      <div class="loading">
+        Loading exam…
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN EXAM UI
+       ===================================================== -->
+
+  <div
+    id="examUI"
+    class="exam-wrap"
+    hidden
+  >
+
+    <!-- ================= QUESTION AREA ================= -->
+
+    <div>
+
+      <div class="card">
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            flex-wrap:wrap;
+            gap:8px
+          "
+        >
+
+          <b id="qno"></b>
+
+          <span>
+
+            <span
+              class="badge purple"
+              id="qtopic"
+            ></span>
+
+            <span
+              class="badge blue"
+              id="qmarks"
+            ></span>
+
+          </span>
+
+        </div>
+
+
+        <h2
+          id="qtext"
+          style="margin:14px 0"
+        ></h2>
+
+
+        <div id="opts"></div>
+
+
+        <!-- QUESTION NAVIGATION -->
+
+        <div
+          class="actions"
+          style="
+            margin-top:14px;
+            justify-content:space-between
+          "
+        >
+
+          <div class="actions">
+
+            <button
+              class="btn"
+              id="prev"
+            >
+              ← Previous
+            </button>
+
+
+            <button
+              class="btn"
+              id="next"
+            >
+              Next →
+            </button>
+
+
+            <button
+              class="btn"
+              id="clear"
+            >
+              Clear answer
+            </button>
+
+          </div>
+
+
+          <button
+            class="btn green"
+            id="submitBtn"
+          >
+            Submit Exam
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= SIDE PANEL ================= -->
+
+    <div>
+
+      <!-- QUESTION PALETTE -->
+
+      <div class="card">
+
+        <h3>
+          Question Palette
+        </h3>
+
+
+        <div
+          class="palette"
+          id="palette"
+        ></div>
+
+
+        <div class="legend">
+
+          <span>
+            <i
+              style="background:var(--border)"
+            ></i>
+            Not visited
+          </span>
+
+
+          <span>
+            <i
+              style="background:var(--orange)"
+            ></i>
+            Visited
+          </span>
+
+
+          <span>
+            <i
+              style="background:var(--green)"
+            ></i>
+            Answered
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROCTORING INFORMATION -->
+
+      <div
+        class="card muted"
+        style="font-size:.85rem"
+      >
+
+        🛡️
+
+        <b>Proctoring active</b>
+
+        <div style="margin-top:5px">
+
+          Fullscreen, tab switching and
+          camera are monitored.
+
+        </div>
+
+
+        <!--
+          exam.js dynamically replaces/updates
+          this text using the exam's configured
+          max_violations value.
+        -->
+
+        <div
+          id="proctoringRule"
+          style="margin-top:5px"
+        >
+          Violation limit is configured for
+          this exam.
+        </div>
+
+
+        <div
+          id="faceStatus"
+          style="margin-top:6px"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CAMERA
+       ===================================================== -->
+
+  <div
+    id="camBox"
+    hidden
+  >
+
+    <video
+      id="cam"
+      autoplay
+      muted
+      playsinline
+    ></video>
+
+    <small>
+      Camera (not recorded)
+    </small>
+
+  </div>
+
+
+  <!-- =====================================================
+       OVERLAY
+       ===================================================== -->
+
+  <div
+    class="overlay"
+    id="overlay"
+    hidden
+  >
+
+    <div
+      class="card"
+      id="overlayCard"
+    ></div>
+
+  </div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script src="js/common.js"></script>
+
+  <script src="js/exam.js"></script>
+
+</body>
+</html>
